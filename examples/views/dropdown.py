@@ -1,5 +1,3 @@
-import typing
-
 import discord
 from discord.ext import commands
 
@@ -13,13 +11,19 @@ class Dropdown(discord.ui.Select):
         # Set the options that will be presented inside the dropdown
         options = [
             discord.SelectOption(
-                label="Red", description="Your favourite colour is red", emoji="🟥"
+                label="Red", 
+                description="Your favourite colour is red", 
+                emoji="🟥"
             ),
             discord.SelectOption(
-                label="Green", description="Your favourite colour is green", emoji="🟩"
+                label="Green", 
+                description="Your favourite colour is green", 
+                emoji="🟩"
             ),
             discord.SelectOption(
-                label="Blue", description="Your favourite colour is blue", emoji="🟦"
+                label="Blue", 
+                description="Your favourite colour is blue", 
+                emoji="🟦"
             ),
         ]
 
@@ -50,17 +54,7 @@ class DropdownView(discord.ui.View):
         # Adds the dropdown to our view object.
         self.add_item(Dropdown())
 
-
-class Bot(commands.Bot):
-    def __init__(self):
-        super().__init__(command_prefix=commands.when_mentioned_or("$"))
-
-    async def on_ready(self):
-        print(f"Logged in as {self.user} (ID: {self.user.id})")
-        print("------")
-
-
-bot = Bot()
+bot = commands.Bot(command_prefix=commands.when_mentioned_or("$"))
 
 
 @bot.command()
@@ -71,7 +65,10 @@ async def colour(ctx):
     view = DropdownView()
 
     # Sending a message containing our view
-    await ctx.send("Pick your favourite colour:", view=view)
+    await ctx.send(
+        "Pick your favourite colour:", 
+        view=view
+    )
 
 
 bot.run("token")
